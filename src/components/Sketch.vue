@@ -9,6 +9,7 @@ import VueP5 from "vue-p5";
 import { Point, Rectangle, QuadTree, Circle } from "../quadtree.js";
 import Hunter from "../things/hunter";
 import Prey from "../things/prey";
+import Scavenger from "../things/scavenger";
 
 export default {
   components: {
@@ -20,11 +21,14 @@ export default {
     };
   },
   mounted() {
-    for (let hunterTotal = 0; hunterTotal < 3; hunterTotal++) {
-      this.creatures.push(new Hunter(20, 20, 2, 15));
+    for (let scavengerTotal = 0; scavengerTotal < 3; scavengerTotal++) {
+      this.creatures.push(new Scavenger(20, 20, 1, 10, "#43bf35"));
     }
-    for (let preyTotal = 0; preyTotal < 100; preyTotal++) {
-      this.creatures.push(new Prey(750, 550, 2, 10));
+    for (let hunterTotal = 0; hunterTotal < 3; hunterTotal++) {
+      this.creatures.push(new Hunter(20, 20, 2, 10));
+    }
+    for (let preyTotal = 0; preyTotal < 500; preyTotal++) {
+      this.creatures.push(new Prey(750, 550, 3, 5));
     }
   },
   methods: {
@@ -67,13 +71,11 @@ export default {
                 creature.constructor.name === "Prey" &&
                 other.userData.constructor.name === "Prey"
               ) {
-                creature.destination.x = other.userData.destination.x - 0.05;
-                creature.destination.y = other.userData.destination.y - 0.05;
+                creature.destination.x = other.userData.destination.x;
+                creature.destination.y = other.userData.destination.y;
                 creature.isFlock = true;
-                creature.color = "#42f4e2";
 
                 other.userData.isFlock = true;
-                other.userData.color = "#42f4e2";
               }
               if (d < creature.size / 2 + other.userData.size / 2) {
                 if (

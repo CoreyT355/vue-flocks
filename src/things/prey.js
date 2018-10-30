@@ -8,4 +8,10 @@ export default class Prey extends DrawableAsset {
     this.speed = speed;
     this.isFlock = false;
   }
+  draw(sketch) {
+    if (this.isFlock) {
+      this.color = "#42f4e2";
+    }
+    super.draw(sketch);
+  }
 }
